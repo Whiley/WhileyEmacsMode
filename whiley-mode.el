@@ -13,6 +13,11 @@
 
 ;; Licensed under the same terms as Emacs.
 
+;;; Commentary:
+
+;; This package provides a major mode for working with programs
+;; written in the Whiley programming language.
+
 (require 'cc-mode)
 
 (defun whiley-comment-dwim (arg)
@@ -40,6 +45,7 @@ For detail, see `comment-dwim'."
     (,whiley-keywords-regexp . font-lock-keyword-face)
 ))
 
+;;;###autoload
 (define-derived-mode whiley-mode fundamental-mode
   "whiley mode"
   "Major mode for editing Whiley ..."
