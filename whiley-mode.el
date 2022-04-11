@@ -1,11 +1,12 @@
-;;; whiley-mode.el --- Major mode for Whiley language. -*- lexical-binding: t; -*-
+;;; whiley-mode.el --- Major mode for Whiley language -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012-- David J. Pearce
 ;;
 ;; Author: David J. Pearce <dave01001110@gmail.com>
 ;; URL: http://github.com/Whiley/WhileyEmacsMode
 ;; Version: 1.0
-;; Keywords: whiley
+;; Package-Requires: ((emacs "24.1"))
+;; Keywords: languages
 
 ;; This file is not part of GNU Emacs.
 
@@ -20,9 +21,12 @@
 
 (require 'cc-mode)
 
+;;; Code:
+
 (defun whiley-comment-dwim (arg)
   "Comment or uncomment current line or region in a smart way.
-For detail, see `comment-dwim'."
+For detail, see `comment-dwim'.  Argument ARG is optional prefiex
+for `comment-dwim'."
    (interactive "*P")
    (require 'newcomment)
    (let ((deactivate-mark nil) (comment-start "//") (comment-end ""))
@@ -38,12 +42,8 @@ For detail, see `comment-dwim'."
 
 (defvar whiley-keywords-regexp (regexp-opt whiley-keywords 'words))
 (defvar whiley-type-regexp (regexp-opt whiley-types 'words))
-
-(setq whiley-font-lock-keywords
-  `(
-    (,whiley-type-regexp . font-lock-type-face)
-    (,whiley-keywords-regexp . font-lock-keyword-face)
-))
+(defvar whiley-font-lock-keywords
+  `((,whiley-type-regexp . font-lock-type-face)(,whiley-keywords-regexp . font-lock-keyword-face)))
 
 ;;;###autoload
 (define-derived-mode whiley-mode fundamental-mode
@@ -51,7 +51,7 @@ For detail, see `comment-dwim'."
   "Major mode for editing Whiley ..."
   (setq font-lock-defaults '((whiley-font-lock-keywords)))
   (setq whiley-keywords-regexp nil)
-  (setq whiley-types-regexp nil)
+  (setq whiley-type-regexp nil)
 
   ;; borrow adaptive fill for comments from cc-mode
   (substitute-key-definition 'fill-paragraph 'c-fill-paragraph
@@ -71,9 +71,7 @@ For detail, see `comment-dwim'."
   ;; unicode characters
   (local-set-key "\M-u" '(lambda () (interactive) (ucs-insert #x222A)))
   (local-set-key "\M-n" '(lambda () (interactive) (ucs-insert #x2229)))
-  (local-set-key "\M-e" '(lambda () (interactive) (ucs-insert #x2208)))
-
-)
+  (local-set-key "\M-e" '(lambda () (interactive) (ucs-insert #x2208))))
 
 ;;;###autoload
 (setq auto-mode-alist (cons '("\\.whiley\\'" . whiley-mode) auto-mode-alist))
