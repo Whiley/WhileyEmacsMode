@@ -75,7 +75,9 @@ For detail, see `comment-dwim'."
 
 )
 
-;; automode
+;;;###autoload
 (setq auto-mode-alist (cons '("\\.whiley\\'" . whiley-mode) auto-mode-alist))
 
-(provide 'whiley)
+;;;###autoload
+(provide 'whiley-mode)
+;;; whiley-mode.el ends here
