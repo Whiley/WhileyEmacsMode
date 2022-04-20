@@ -78,14 +78,10 @@ for `comment-dwim'."
   (setq indent-tabs-mode nil)
   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
   (setq tab-stop-list (list 4 8 12 16 20 24 28))
-
-  ;; unicode characters
-  (local-set-key "\M-u" '(lambda () (interactive) (ucs-insert #x222A)))
-  (local-set-key "\M-n" '(lambda () (interactive) (ucs-insert #x2229)))
-  (local-set-key "\M-e" '(lambda () (interactive) (ucs-insert #x2208))))
+)
 
 ;;;###autoload
-(setq auto-mode-alist (cons '("\\.whiley\\'" . whiley-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.whiley\\'" . whiley-mode))
 
 ;;;###autoload
 (provide 'whiley-mode)
