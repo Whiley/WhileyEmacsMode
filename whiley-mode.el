@@ -4,7 +4,7 @@
 ;;
 ;; Author: David J. Pearce <dave01001110@gmail.com>
 ;; URL: http://github.com/Whiley/WhileyEmacsMode
-;; Version: 1.0
+;; Version: 1.0.1
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages
 
@@ -64,10 +64,6 @@ for `comment-dwim'."
   (setq whiley-keywords-regexp nil)
   (setq whiley-type-regexp nil)
 
-  ;; borrow adaptive fill for comments from cc-mode
-  (substitute-key-definition 'fill-paragraph 'c-fill-paragraph
-			     c-mode-base-map global-map)
-
   ;; java-style comments "// ..." and “/* … */”
   (define-key whiley-mode-map [remap comment-dwim] 'whiley-comment-dwim)
   (modify-syntax-entry ?\/ ". 124b" whiley-mode-syntax-table)
@@ -77,8 +73,7 @@ for `comment-dwim'."
   ;; indentation.  Needs work!
   (setq indent-tabs-mode nil)
   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-  (setq tab-stop-list (list 4 8 12 16 20 24 28))
-)
+  (setq tab-stop-list (list 4 8 12 16 20 24 28)))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.whiley\\'" . whiley-mode))
